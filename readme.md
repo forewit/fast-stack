@@ -3,7 +3,7 @@
 
 A simple stack for creating minimum viable PWAs quickly. This repo can be used as a template as well with basic auth and app state management
 
- <code>&emsp;Typescript&emsp;<img align="center" src="static/svg/typescript.svg" width="20"/>&emsp;</code>
+ <code>&emsp;<strong>Typescript</strong>&emsp;<img align="center" src="static/svg/typescript.svg" width="20"/>&emsp;</code>
 
 <code><strong>Framework&emsp;&emsp;</strong></code>&emsp;Svelte&emsp;<img align="center" src="static/svg/svelte.svg" width="20"/>
 
