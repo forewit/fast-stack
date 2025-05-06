@@ -17,7 +17,7 @@ A simple stack for creating minimum viable PWAs quickly. This repo can be used a
 <p align="center">
   <code>&emsp;GitHub&emsp;<img align="center" src="static/svg/github.svg" width="20"/>&emsp;</code>
   <code>&emsp;<strong><a href="https://github.com/tschaub/gh-pages">gh-pages</a></strong>&emsp;</code>
-  <code>&emsp;<strong><a href="https://firebase.google.com/docs/auth">Firebase</a></strong>&emsp;<img align="center" src="static/svg/firebase-auth.svg" width="20"/>&emsp;</code>
+  <code>&emsp;<strong><a href="https://firebase.google.com/docs/auth">Firebase Auth</a></strong>&emsp;<img align="center" src="static/svg/firebase-auth.svg" width="20"/>&emsp;</code>
   <code>&emsp;<strong><a href="https://firebase.google.com/docs/firestore/quickstart">Firestore</a></strong>&emsp;<img align="center" src="static/svg/firebase-firestore.svg" width="20"/>&emsp;</code>
 </p>
 
