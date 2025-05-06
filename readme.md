@@ -4,11 +4,11 @@
 A simple stack for creating minimum viable PWAs quickly. This repo can be used as a template as well with basic auth and app state management
 
 <p align="center">
-  <code>&emsp;<strong>Typescript</strong>&emsp;<img align="center" src="static/svg/typescript.svg" width="20"/>&emsp;</code>
+  <code>&emsp;Typescript&emsp;<img align="center" src="static/svg/typescript.svg" width="20"/>&emsp;</code>
 </p>
 
 <p align="center">
-  <code>&emsp;<strong>Svelte</strong>&emsp;<img align="center" src="static/svg/svelte.svg" width="20"/>&emsp;</code>
+  <code>&emsp;Svelte&emsp;<img align="center" src="static/svg/svelte.svg" width="20"/>&emsp;</code>
 </p>
 
 <p align="center">
@@ -24,7 +24,7 @@ A simple stack for creating minimum viable PWAs quickly. This repo can be used a
 </p>
 
 <p align="center">
-  <code>&emsp;<strong>GitHub</strong>&emsp;<img align="center" src="static/svg/github.svg" width="20"/>&emsp;</code>
+  <code>&emsp;GitHub&emsp;<img align="center" src="static/svg/github.svg" width="20"/>&emsp;</code>
 </p>
 
 <p align="center">
