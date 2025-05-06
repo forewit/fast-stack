@@ -1,41 +1,23 @@
 # FaST Stack Overview
 > **F**irebase **a**nd **S**veltekit **T**ailwind
 
-A simple stack for creating minimum viable PWAs quickly. This repo can be used as a template as well with basic auth and app state management
+A simple stack for creating minimum viable PWAs quickly. This repo can be used as a template as well with basic auth and app state management.
 
 <p align="center">
   <code>&emsp;Typescript&emsp;<img align="center" src="static/svg/typescript.svg" width="20"/>&emsp;</code>
-</p>
-
-<p align="center">
   <code>&emsp;Svelte&emsp;<img align="center" src="static/svg/svelte.svg" width="20"/>&emsp;</code>
-</p>
-
-<p align="center">
   <code>&emsp;<strong><a href="https://svelte.dev/docs/kit/creating-a-project">SvelteKit</a></strong>&emsp;</code>
 </p>
 
 <p align="center">
   <code>&emsp;<strong><a href="https://next.shadcn-svelte.com/docs/installation/sveltekit">shadcn-svelte</a></strong>&emsp;<img align="center" src="static/svg/shadcn.svg" width="20"/>&emsp;</code>
-</p>
-
-<p align="center">
   <code>&emsp;<strong><a href="https://v3.tailwindcss.com/docs/installation">Tailwind v3</a></strong>&emsp;<img align="center" src="static/svg/tailwind.svg" width="20"/>&emsp;</code>
 </p>
 
 <p align="center">
   <code>&emsp;GitHub&emsp;<img align="center" src="static/svg/github.svg" width="20"/>&emsp;</code>
-</p>
-
-<p align="center">
   <code>&emsp;<strong><a href="https://github.com/tschaub/gh-pages">gh-pages</a></strong>&emsp;</code>
-</p>
-
-<p align="center">
   <code>&emsp;<strong><a href="https://firebase.google.com/docs/auth">Firebase</a></strong>&emsp;<img align="center" src="static/svg/firebase-auth.svg" width="20"/>&emsp;</code>
-</p>
-
-<p align="center">
   <code>&emsp;<strong><a href="https://firebase.google.com/docs/firestore/quickstart">Firestore</a></strong>&emsp;<img align="center" src="static/svg/firebase-firestore.svg" width="20"/>&emsp;</code>
 </p>
 
