@@ -1,4 +1,4 @@
-import{a6 as g,am as u,an as S}from"./W36Njmw1.js";let w,p;function k(e){if(typeof document>"u")return;clearTimeout(w),clearTimeout(p);const n=document.createElement("style"),o=document.createTextNode(`* {
+import{a6 as g,al as u,am as S}from"./CB0-WiRl.js";let w,p;function k(e){if(typeof document>"u")return;clearTimeout(w),clearTimeout(p);const n=document.createElement("style"),o=document.createTextNode(`* {
      -webkit-transition: none !important;
      -moz-transition: none !important;
      -o-transition: none !important;
