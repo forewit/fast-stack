@@ -3,16 +3,17 @@
 
 A simple stack for creating minimum viable PWAs quickly. This repo can be used as a template as well with basic auth and app state management
 
-|   |  |
-|-|-|
-**Lang** | Typescript
-**Framework** | Svelte 
-**Routing** | [Sveltekit](https://svelte.dev/docs/kit/creating-a-project) 
-**UI**   | [Svelte-shadcn](https://next.shadcn-svelte.com/docs/installation/sveltekit)<br>[Tailwind v3](https://v3.tailwindcss.com/docs/installation)
-**Deploy** | [gh-pages](https://github.com/tschaub/gh-pages)
-**Static Hosting** | GitHub
-**Auth** | [Firebase](https://firebase.google.com/docs/auth)
-**Database** | [Firestore](https://firebase.google.com/docs/firestore/quickstart)
+<pre>
+ <strong>Language</strong> ⟶  Typescript <img src="static/svg/typescript.svg" width="16"/>
+<strong>Framework</strong> ⟶  Svelte <img src="static/svg/svelte.svg" width="16"/>
+  <strong>Routing</strong> ⟶  <a href="https://svelte.dev/docs/kit/creating-a-project">Sveltekit</a> 
+       <strong>UI</strong> ⟶  <a href="https://next.shadcn-svelte.com/docs/installation/sveltekit">shadcn-svelte</a> <img src="static/svg/shadcn.svg" width="16"/>
+              <a href="https://v3.tailwindcss.com/docs/installation">Tailwind v3</a> <img src="static/svg/tailwind.svg" width="16"/>
+  <strong>Hosting</strong> ⟶  GitHub <img src="static/svg/github.svg" width="16"/>
+   <strong>Deploy</strong> ⟶  <a href="https://github.com/tschaub/gh-pages">gh-pages</a>
+     <strong>Auth</strong> ⟶  <a href="https://firebase.google.com/docs/auth">Firebase</a> <img src="static/svg/firebase-auth.svg" width="16"/>
+ <strong>Database</strong> ⟶  <a href="https://firebase.google.com/docs/firestore/quickstart">Firestore</a> <img src="static/svg/firebase-firestore.svg" width="16"/>
+</pre> 
 
 
 ### Initial setup
