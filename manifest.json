@@ -1,0 +1,16 @@
+{
+    "name": "FaST Stack",
+    "short_name": "FaST",
+    "description": "Firebase and Sveltekit Tailwind tech stack",
+    "start_url": "/fast-stack/",
+    "scope": "/fast-stack/",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "images/favicon.png",
+            "sizes": "1024x1024",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ]
+}
