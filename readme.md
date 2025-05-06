@@ -3,18 +3,17 @@
 
 A simple stack for creating minimum viable PWAs quickly. This repo can be used as a template as well with basic auth and app state management
 
+|   |  |
+|-|-|
+**Lang** | Typescript
+**Framework** | Svelte 
+**Routing** | [Sveltekit](https://svelte.dev/docs/kit/creating-a-project) 
+**UI**   | [Svelte-shadcn](https://next.shadcn-svelte.com/docs/installation/sveltekit)<br>[Tailwind v3](https://v3.tailwindcss.com/docs/installation)
+**Deploy** | [gh-pages](https://github.com/tschaub/gh-pages)
+**Static Hosting** | GitHub
+**Auth** | [Firebase](https://firebase.google.com/docs/auth)
+**Database** | [Firestore](https://firebase.google.com/docs/firestore/quickstart)
 
-<p align="center">
-<strong>Lang</strong>            | Typescript  
-<strong>Framework</strong>       | Svelte  
-<strong>Routing</strong>         | <a href="https://svelte.dev/docs/kit/creating-a-project">SvelteKit</a>  
-<strong>UI</strong>              | <a href="https://next.shadcn-svelte.com/docs/installation/sveltekit">Svelte-shadcn</a><br><a href="https://v3.tailwindcss.com/docs/installation">Tailwind v3</a>  
-<strong>Deploy</strong>          | <a href="https://github.com/tschaub/gh-pages">gh-pages</a>  
-<strong>Static Hosting</strong> | GitHub  
-<strong>Auth</strong>           | <a href="https://firebase.google.com/docs/auth">Firebase</a>  
-<strong>Database</strong>       | <a href="https://firebase.google.com/docs/firestore/quickstart">Firestore</a>  
-
-</p>
 
 ### Initial setup
 #### Create app with shadcn-svelte and tailwind see [install instructions](https://next.shadcn-svelte.com/docs/installation/sveltekit):
