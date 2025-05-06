@@ -15,7 +15,6 @@ function createApp() {
     // permanent state
     let settings: UserSettings = $state({
         username: "",
-        color: "",
         theme: "system"
     });
 

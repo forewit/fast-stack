@@ -41,7 +41,7 @@
 </script>
 
 <svelte:head>
-  <title>Sellability</title>
+  <title>FaST Stack</title>
 </svelte:head>
 
 <ModeWatcher />

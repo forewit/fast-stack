@@ -6,8 +6,11 @@
   import * as Alert from "$lib/components/ui/alert/index.js";
   import { Loader2, TriangleAlert, CheckCheck } from "lucide-svelte";
   import { base } from "$app/paths";
+  import type { Snippet } from "svelte";
+  import { cn } from "$lib/utils";
 
-  let { onSuccessfulLogin }: { onSuccessfulLogin: () => void } = $props();
+  let { onSuccessfulLogin = ()=>{}, children, class: className = "" }: { onSuccessfulLogin?: () => void; children?: Snippet; class?: string } = $props();
+  
   const firebase = getFirebaseContext();
 
   let email = $state("");
@@ -139,10 +142,9 @@
     ></div>
   </div>
 {:else}
-  <Card.Root class="w-full max-w-sm mx-auto">
+  <Card.Root class={cn("w-full max-w-sm mx-auto", className)}>
     <Card.Header class="flex items-center">
-      <img src="{base}/images/cube.png" class="w-24" alt="logo" />
-      <Card.Title class="text-center">Sellability</Card.Title>
+      {@render children?.()}
     </Card.Header>
     <Card.Content>
       {#if forgotPassword}
