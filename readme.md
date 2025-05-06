@@ -3,16 +3,23 @@
 
 A simple stack for creating minimum viable PWAs quickly. This repo can be used as a template as well with basic auth and app state management
 
-| **Category** | **Tool / Link** |
-|-------------|-----------------|
-| Language     | Typescript <img src="static/svg/typescript.svg" width="16"/> |
-| Framework    | Svelte <img src="static/svg/svelte.svg" width="16"/> |
-| Routing      | <a href="https://svelte.dev/docs/kit/creating-a-project">SvelteKit</a> |
-| UI           | <a href="https://next.shadcn-svelte.com/docs/installation/sveltekit">shadcn-svelte</a> <img src="static/svg/shadcn.svg" width="16"/><br><a href="https://v3.tailwindcss.com/docs/installation">Tailwind v3</a> <img src="static/svg/tailwind.svg" width="16"/> |
-| Hosting      | GitHub <img src="static/svg/github.svg" width="16"/> |
-| Deploy       | <a href="https://github.com/tschaub/gh-pages">gh-pages</a> |
-| Auth         | <a href="https://firebase.google.com/docs/auth">Firebase</a> <img src="static/svg/firebase-auth.svg" width="16"/> |
-| Database     | <a href="https://firebase.google.com/docs/firestore/quickstart">Firestore</a> <img src="static/svg/firebase-firestore.svg" width="16"/> |
+<code><strong>Language&emsp;&emsp;&emsp;</strong></code>&emsp;Typescript&emsp;<img align="center" src="static/svg/typescript.svg" width="20"/>
+
+<code><strong>Framework&emsp;&emsp;</strong></code>&emsp;Svelte&emsp;<img align="center" src="static/svg/svelte.svg" width="20"/>
+
+<code><strong>Routing&emsp;&emsp;&emsp;&emsp;</strong></code>&emsp;<a href="https://svelte.dev/docs/kit/creating-a-project">SvelteKit</a>
+
+<code><strong>UI&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</strong></code>&emsp;<a href="https://v3.tailwindcss.com/docs/installation">Tailwind v3</a>&emsp;<img align="center" src="static/svg/tailwind.svg" width="20"/>&emsp;+&emsp;<a href="https://next.shadcn-svelte.com/docs/installation/sveltekit">shadcn-svelte</a>&emsp;<img align="center" src="static/svg/shadcn.svg" width="20"/>
+
+<code><strong>Hosting&emsp;&emsp;&emsp;&emsp;</strong></code>&emsp;GitHub&emsp;<img align="center" src="static/svg/github.svg" width="20"/>
+
+<code><strong>Deploy&emsp;&emsp;&emsp;&emsp;&emsp;</strong></code>&emsp;<a href="https://github.com/tschaub/gh-pages">gh-pages</a>
+
+<code><strong>Auth&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</strong></code>&emsp;<a href="https://firebase.google.com/docs/auth">Firebase Auth</a>&emsp;<img align="center" src="static/svg/firebase-auth.svg" width="20"/>
+
+<code><strong>Database&emsp;&emsp;&emsp;</strong></code>&emsp;<a href="https://firebase.google.com/docs/firestore/quickstart">Firestore</a>&emsp;<img align="center" src="static/svg/firebase-firestore.svg" width="20"/>
+
+
 
 
 
