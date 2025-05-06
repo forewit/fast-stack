@@ -3,17 +3,18 @@
 
 A simple stack for creating minimum viable PWAs quickly. This repo can be used as a template as well with basic auth and app state management
 
-|   | Docs  |
-|-|-|
-**Lang** | Typescript
-**Framework** | Svelte 
-**Routing** | [Sveltekit](https://svelte.dev/docs/kit/creating-a-project) 
-**UI**   | [Svelte-shadcn](https://next.shadcn-svelte.com/docs/installation/sveltekit)<br>[Tailwind v3](https://v3.tailwindcss.com/docs/installation)
-**Deploy** | [gh-pages](https://github.com/tschaub/gh-pages)
-**Static Hosting** | GitHub
-**Auth** | [Firebase](https://firebase.google.com/docs/auth)
-**Database** | [Firestore](https://firebase.google.com/docs/firestore/quickstart)
 
+<p align="center">
+<strong>Lang</strong>            | Typescript  
+<strong>Framework</strong>       | Svelte  
+<strong>Routing</strong>         | <a href="https://svelte.dev/docs/kit/creating-a-project">SvelteKit</a>  
+<strong>UI</strong>              | <a href="https://next.shadcn-svelte.com/docs/installation/sveltekit">Svelte-shadcn</a><br><a href="https://v3.tailwindcss.com/docs/installation">Tailwind v3</a>  
+<strong>Deploy</strong>          | <a href="https://github.com/tschaub/gh-pages">gh-pages</a>  
+<strong>Static Hosting</strong> | GitHub  
+<strong>Auth</strong>           | <a href="https://firebase.google.com/docs/auth">Firebase</a>  
+<strong>Database</strong>       | <a href="https://firebase.google.com/docs/firestore/quickstart">Firestore</a>  
+
+</p>
 
 ### Initial setup
 #### Create app with shadcn-svelte and tailwind see [install instructions](https://next.shadcn-svelte.com/docs/installation/sveltekit):
@@ -26,7 +27,6 @@ npx sv@0.6.18 add tailwindcss
 npx shadcn-svelte@next init
 npm i tailwindcss-animate
 npm i bits-ui -D
-
 npm i lucide-svelte
 npm i mode-watcher@0.5.1
 npm i gh-pages --save-dev
@@ -37,7 +37,7 @@ npm i firebase
 
 #### Setup static site rendering. 
  
-- Update **svelte.config.js**:
+- Update `svelte.config.js`:
 
 ```ts
 // Change adapter-auto to adapter-static...
@@ -57,7 +57,7 @@ const config = {
 }
 ```
 
-- add the following to **/src/routes/+layout.ts** (or create the file):
+- add the following to `/src/routes/+layout.ts` (or create the file):
 
 ```ts
 export const prerender = true;
@@ -65,15 +65,15 @@ export const trailingSlash = "always";
 ```
 
 #### Setup Firebase. Copy the following files from this repo:
-- **/.env**
-- **src/lib/firebase/firebase.client.js**
-- **src/lib/firebase/firebase.svelte.ts**
+- `/.env`
+- `src/lib/firebase/firebase.client.js`
+- `src/lib/firebase/firebase.svelte.ts`
     
 #### Setup PWA. Copy the following files from this repo:
-- **src/service-worker.js**
-- **static/manifest.json** 
+- `src/service-worker.js`
+- `static/manifest.json`
     - Update to match your GitHub repo!
-    - add `<link rel="manifest" href="%sveltekit.assets%/manifest.json" />` to **/src/app.html** an
+    - add `<link rel="manifest" href="%sveltekit.assets%/manifest.json" />` to `/src/app.html` an
 ### Optional niceties
 #### Custom deploy scripts
 ```json
