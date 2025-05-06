@@ -51,7 +51,7 @@
     <div class="max-w-[1200px] m-auto pt-[env(safe-area-inset-top)]">
       {@render children?.()}
     </div>
-    <div class="h-24 pb-[env(safe-area-inset-bottom)]"></div>
+    <div class="pb-[env(safe-area-inset-bottom)]"></div>
   </ScrollArea>
 {/snippet}
 

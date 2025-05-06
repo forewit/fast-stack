@@ -21,12 +21,8 @@ A simple stack for creating minimum viable PWAs quickly. This repo can be used a
   <code>&emsp;<strong><a href="https://firebase.google.com/docs/firestore/quickstart">Firestore</a></strong>&emsp;<img align="center" src="static/svg/firebase-firestore.svg" width="20"/>&emsp;</code>
 </p>
 
-
-
-
-
 ### Initial setup
-#### Create app with shadcn-svelte and tailwind see [install instructions](https://next.shadcn-svelte.com/docs/installation/sveltekit):
+#### Create app with shadcn-svelte and tailwind. See [install instructions](https://next.shadcn-svelte.com/docs/installation/sveltekit):
 ```bash
 npx sv@0.6.18 create my-app
 ```
@@ -83,7 +79,8 @@ export const trailingSlash = "always";
 - `static/manifest.json`
     - Update to match your GitHub repo!
     - add `<link rel="manifest" href="%sveltekit.assets%/manifest.json" />` to `/src/app.html` an
-### Optional niceties
+    
+### Optional Niceties
 #### Custom deploy scripts
 ```json
 "deploy": "touch build/.nojekyll && gh-pages -d build",
