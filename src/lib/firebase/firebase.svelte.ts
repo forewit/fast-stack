@@ -1,58 +1,74 @@
 import { auth, db } from "$lib/firebase/firebase.client";
 import { type User, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, deleteDoc, collection, onSnapshot, setDoc, type DocumentData } from "firebase/firestore";
+import { doc, deleteDoc, collection, onSnapshot, setDoc, type DocumentData, updateDoc } from "firebase/firestore";
 import { debounce } from "$lib/utils";
-import { getContext, setContext } from 'svelte';
+import { getContext, setContext, untrack } from 'svelte';
 
 function createFirebase() {
     const DEBOUNCE_DELAY = 1000;
+    const USER_ID_ALIAS = "UID-ALIAS"
 
     let publishQueue: Record<string, { publish: () => void, data: DocumentData | null }> = $state({});
     let isLoading = $state(true)
     let isPublishing = $derived(Object.keys(publishQueue).length > 0)
     let user: User | null = $state(null)
-    let userDocPath = $derived.by(() => { return "users/" + user?.uid })
-    let pendingSubscriptions: (() => void)[] = []
     let cleanupFunctions: (() => void)[] = []
 
-    /** subscribes to a Firestore document at path: users (collection) -> userid (document) -> ...path */
-    function subscribeToDoc(path: string[], fn: (id: string, doc: DocumentData | null) => void) {
-        if (!user) {
-            pendingSubscriptions.push(() => subscribeToDoc(path, fn));
-            return;
-        }
 
-        const docRef = doc(db, userDocPath, ...path);
-        const unsub = onSnapshot(docRef,
-            (snap) => { fn(snap.id, snap.exists() ? snap.data() : null) },
-            (error) => { console.warn("Error while syncing firestore doc", path, error) }
-        )
-        cleanupFunctions.push(unsub)
+    function syncToDoc(target: any, collection: string, path: string[]) {
+        const docRef = doc(db, collection, ...path);
+        let initialSync = $state(false);
+
+        const unsub = onSnapshot(docRef, (snap) => {
+            if (snap.exists()) {
+                const newData = snap.data();
+                Object.assign(target, newData);
+                initialSync = true;
+            } else {
+                initialSync = true;
+            }
+        });
+        cleanupFunctions.push(unsub);
+
+
+        $effect(() => {
+            JSON.stringify(target);
+            untrack(() => { if (initialSync) publishDoc(collection, path, target); });
+        });
     }
 
-    /** subscribes to all the Firestore documents in a collection at path: users (collection) -> userid (document) -> ...path */
-    function subscribeToCollection(path: string[], fn: (id: string, doc: DocumentData | null) => void) {
-        if (!user) {
-            pendingSubscriptions.push(() => subscribeToCollection(path, fn));
-            return;
-        }
+    /** subscribes to a Firestore document */
+    function subscribeToDoc(collection: string, path: string[], fn: (id: string, doc: DocumentData | null) => void) {
+        const docRef = doc(db, collection, ...path);
+        const unsub = onSnapshot(docRef,
+            (snap) => { fn(snap.id, snap.exists() ? snap.data() : null) },
+            (error) => { console.warn("Error while syncing firestore doc", path, error); throw error }
+        )
+        cleanupFunctions.push(unsub)
 
-        const colRef = collection(db, userDocPath, ...path);
+
+    }
+
+    /** subscribes to all the Firestore documents in a collection */
+    function subscribeToCollection(path: string, pathSegments: string[], fn: (id: string, doc: DocumentData | null) => void) {
+        const colRef = collection(db, path, ...pathSegments);
         const unsub = onSnapshot(colRef,
             (snap) => {
                 snap.docChanges().forEach(change => {
-                    console.log("fetched doc", change.doc.id, (snap.metadata.fromCache || snap.metadata.hasPendingWrites) ? "(local)" : "(server)");
+                    console.info("Fetched doc", change.doc.id, (snap.metadata.fromCache || snap.metadata.hasPendingWrites) ? "(local)" : "(server)");
                     fn(change.doc.id, change.type === "removed" ? null : change.doc.data())
                 });
             },
             (error) => { console.warn("Error while syncing firestore collection", path, error) }
         )
         cleanupFunctions.push(unsub)
+
+
     }
 
     /** publishes a document to Firestore at path: users (collection) -> userid (document) -> ...path */
-    function publishDoc(path: string[], data: DocumentData | null) {
-        const pathStr = path.join("/");
+    function publishDoc(collection: string, path: string[], data: DocumentData | null) {
+        const pathStr = collection + "/" + path.join("/");
         if (publishQueue[pathStr] !== undefined) {
             publishQueue[pathStr].data = data;
             publishQueue[pathStr].publish(); // call it so that the debounce is triggered
@@ -60,21 +76,19 @@ function createFirebase() {
         }
 
         publishQueue[pathStr] = {
-            publish: debounce(async () => {
-                try {
-                    const docRef = doc(db, userDocPath, ...path);
-                    if (!data) {
-                        console.log("Deleting doc from firestore", pathStr);
-                        await deleteDoc(docRef);
-                    } else {
-                        console.log("Publishing doc to firestore", pathStr);
-                        await setDoc(docRef, publishQueue[pathStr].data);
-                    }
-                } catch (error) {
-                    console.warn("Error while publishing doc to firestore", pathStr, error);
-                } finally {
-                    delete publishQueue[pathStr];
+            publish: debounce(() => {
+                const docRef = doc(db, collection, ...path);
+                if (!data) {
+                    deleteDoc(docRef)
+                        .then(() => console.info("Deleted firestore doc"))
+                        .catch(err => console.warn("Failed to delete firestore doc:", err));
+                } else {
+                    setDoc(docRef, publishQueue[pathStr].data)
+                        .then(() => console.info("Synced with firestore"))
+                        .catch(err => console.warn("Failed to sync with firestore:", err))
                 }
+                delete publishQueue[pathStr];
+
             }, DEBOUNCE_DELAY),
             data: data
         }
@@ -95,7 +109,7 @@ function createFirebase() {
             .then(() => {
                 // Password reset email sent!
                 // ..
-                console.info("Password reset email sent to:", email, );
+                console.info("Password reset email sent to:", email,);
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -106,7 +120,6 @@ function createFirebase() {
     }
 
     async function signUp(email: string, password: string) {
-
         return createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
@@ -129,32 +142,34 @@ function createFirebase() {
             console.info("Logged out, unsubscribing from docs");
             cleanupFunctions.forEach((unsub) => unsub())
             cleanupFunctions = []
-        } else {
-            console.info("Logged in, subscribing to docs");
-            pendingSubscriptions.forEach(fn => fn())
-            pendingSubscriptions = []
         }
     })
 
     function destroy() {
-        console.warn("Closing Firebase");
-        cleanupFunctions.forEach((unsub) => unsub())
+        console.info("Cleaning up firebase listeners");
+        cleanupFunctions.forEach(unsub => unsub())
         cleanupFunctions = []
+
         unsubAuth()
     }
 
     return {
-        get resetPassword() { return resetPassword },
-        get signUp() { return signUp },
+        // state
         get user() { return user },
         get isLoading() { return isLoading },
         get isPublishing() { return isPublishing },
-        get login() { return login },
-        get logout() { return logout },
-        get destroy() { return destroy },
-        get subscribeToCollection() { return subscribeToCollection },
-        get subscribeToDoc() { return subscribeToDoc },
-        get publishDoc() { return publishDoc },
+
+        // functions
+        USER_ID_ALIAS,
+        syncToDoc,
+        resetPassword,
+        signUp,
+        login,
+        logout,
+        destroy,
+        subscribeToCollection,
+        subscribeToDoc,
+        publishDoc,
     }
 }
 

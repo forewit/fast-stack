@@ -8,49 +8,21 @@ export type UserSettings = {
     theme: "light" | "dark" | "system"
 }
 
-
 function createApp() {
     const firebase = getFirebaseContext();
 
     // permanent state
     let settings: UserSettings = $state({
         username: "",
-        theme: "system"
+        theme: "light"
     });
 
     // ephemeral state
-    let lastUpdated = 0;
-    let remoteUpdate = $state(true);
     let authRedirect = $state("")
 
-    const publish = () => { firebase.publishDoc([], { lastUpdated, settings }) }
-
-    const loadDocAndValidate = (data: DocumentData) => { settings = data.settings }
-
-    firebase.subscribeToDoc([], (id, doc) => {
-        if (firebase.isLoading || doc === null) return
-        if (doc.lastUpdated === undefined || doc.lastUpdated < lastUpdated) {
-            publish()
-        } else if (doc.lastUpdated > lastUpdated) {
-            remoteUpdate = true;
-            loadDocAndValidate(doc)
-        } else if (doc.lastUpdated === lastUpdated) {
-            console.log("app in sync with user doc")
-        }
+    $effect(()=>{
+        if (firebase.user) firebase.syncToDoc(untrack(()=>settings), "users", [firebase.user.uid])
     })
-
-    $effect(() => {
-        JSON.stringify(settings);
-
-        untrack(() => {
-            if (remoteUpdate) {
-                remoteUpdate = false
-                return;
-            }
-            lastUpdated = Date.now();
-            publish();
-        })
-    });
 
     return {
         // editable state
