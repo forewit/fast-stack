@@ -6,18 +6,22 @@ import { getContext, setContext, untrack } from 'svelte';
 
 function createFirebase() {
     const DEBOUNCE_DELAY = 1000;
-    const USER_ID_ALIAS = "UID-ALIAS"
 
     let publishQueue: Record<string, { publish: () => void, data: DocumentData | null }> = $state({});
     let isLoading = $state(true)
     let isPublishing = $derived(Object.keys(publishQueue).length > 0)
     let user: User | null = $state(null)
     let cleanupFunctions: (() => void)[] = []
+    let syncedDocs: string[] = []
 
 
     function syncToDoc(target: any, collection: string, path: string[]) {
+        const pathStr = collection + "/" + path.join("/");
+        if (syncedDocs.includes(pathStr)) return;
+
+        let initialSync = false;
+        syncedDocs.push(pathStr);
         const docRef = doc(db, collection, ...path);
-        let initialSync = $state(false);
 
         const unsub = onSnapshot(docRef, (snap) => {
             if (snap.exists()) {
@@ -139,9 +143,12 @@ function createFirebase() {
         isLoading = false
 
         if (currentUser === null) {
-            console.info("Logged out, unsubscribing from docs");
+            console.info("Logged out, cleaning up firebase listeners");
             cleanupFunctions.forEach((unsub) => unsub())
-            cleanupFunctions = []
+            cleanupFunctions = [];
+            syncedDocs = [];
+        } else {
+            console.info("Logged in")
         }
     })
 
@@ -149,7 +156,7 @@ function createFirebase() {
         console.info("Cleaning up firebase listeners");
         cleanupFunctions.forEach(unsub => unsub())
         cleanupFunctions = []
-
+        syncedDocs = [];
         unsubAuth()
     }
 
@@ -160,7 +167,6 @@ function createFirebase() {
         get isPublishing() { return isPublishing },
 
         // functions
-        USER_ID_ALIAS,
         syncToDoc,
         resetPassword,
         signUp,

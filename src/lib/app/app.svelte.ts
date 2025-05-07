@@ -11,25 +11,26 @@ export type UserSettings = {
 function createApp() {
     const firebase = getFirebaseContext();
 
-    // permanent state
-    let settings: UserSettings = $state({
+    // permanent state backed up to firestore
+    let userDoc: UserSettings = $state({
         username: "",
-        theme: "light"
+        theme: "light",
     });
 
     // ephemeral state
     let authRedirect = $state("")
 
-    $effect(()=>{
-        if (firebase.user) firebase.syncToDoc(untrack(()=>settings), "users", [firebase.user.uid])
+    $effect(() => {
+        if (firebase.user) firebase.syncToDoc(userDoc, "users", [firebase.user.uid])
     })
 
     return {
-        // editable state
         get authRedirect() { return authRedirect },
         set authRedirect(value) { authRedirect = value },
-        get settings() { return settings },
-        set settings(value: UserSettings) { settings = value },
+        get username() { return userDoc.username },
+        set username(value) { userDoc.username = value },
+        get theme() { return userDoc.theme },
+        set theme(value) { userDoc.theme = value }
     }
 }
 

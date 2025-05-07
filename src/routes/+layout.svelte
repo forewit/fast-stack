@@ -26,7 +26,7 @@
   });
 
   mode.subscribe((mode) => {
-    app.settings.theme = mode || "system";
+    app.theme = mode || "system";
   });
 
   onMount(() => {

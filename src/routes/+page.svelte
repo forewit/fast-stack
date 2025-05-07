@@ -25,7 +25,7 @@
   <div class="grid gap-4 justify-items-center">
     <div class="relative">
       <Label class="bg-background absolute px-1 -top-2.5 right-3 text-xs">synced $state</Label>
-    <Input bind:value={app.settings.username} />
+    <Input bind:value={app.username} />
     </div>
     
     <Button href="https://github.com/forewit/fast-stack" class="w-min"><Github /> View on GitHub</Button>
