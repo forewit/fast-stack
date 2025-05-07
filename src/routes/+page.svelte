@@ -27,6 +27,10 @@
       <Label class="bg-background absolute px-1 -top-2.5 right-3 text-xs">synced $state</Label>
     <Input bind:value={app.username} />
     </div>
+    <div class="relative">
+      <Label class="bg-background absolute px-1 -top-2.5 right-3 text-xs">synced prop</Label>
+    <Input bind:value={app.test.test} />
+    </div>
     
     <Button href="https://github.com/forewit/fast-stack" class="w-min"><Github /> View on GitHub</Button>
     <Button variant="destructive" onclick={firebase.logout} class="w-min" size="sm">
