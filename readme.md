@@ -38,6 +38,7 @@ npm i gh-pages --save-dev
 npm i --save-dev @types/node
 npm i -D @sveltejs/adapter-static
 npm i firebase
+firebase init
 ```
 
 #### Setup static site rendering. 
@@ -88,3 +89,10 @@ export const trailingSlash = "always";
 ```
 
 > Yes, I know that committing to main with "na" is worse than doing pull requests... sue me. This is for **minimum** viable products, not prod 😊
+
+#### how tos
+run locally:
+```bash
+firebase emulators:start
+npm run dev
+```

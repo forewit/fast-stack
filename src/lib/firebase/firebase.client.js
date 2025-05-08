@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { getApps, initializeApp, getApp, deleteApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager } from "firebase/firestore";
+import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager, connectFirestoreEmulator } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -27,3 +27,7 @@ export const auth = getAuth(firebaseApp);
 export const db = initializeFirestore(firebaseApp, {
   localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() })
 })
+
+if (process.env.NODE_ENV !== 'production') {
+  connectFirestoreEmulator(db, 'localhost', 8080);
+}
