@@ -25,10 +25,6 @@
     }
   });
 
-  mode.subscribe((mode) => {
-    app.theme = mode || "system";
-  });
-
   onMount(() => {
     window.addEventListener("beforeunload", (e) => {
       if (firebase.isPublishing) e.preventDefault();
