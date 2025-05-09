@@ -6,7 +6,7 @@ import { getContext, setContext } from 'svelte';
 
 function createFirebase() {
     const DEBOUNCE_DELAY = 1000;
-    const USER_ID_PENDING = "USER_ID_PENDING";
+    const USER_ID = "USER_ID_PENDING";
 
     let isLoading = $state(true)
     let isPublishing = $state(false)
@@ -35,7 +35,7 @@ function createFirebase() {
      *      () => ({ username }),
      *      (v) => { if (v.username != undefined) username = v.username },
      *      "users",
-     *      firebase.uidPlaceholder
+     *      firebase.USER_ID_PENDING
      *  );
      * ```
      */
@@ -44,28 +44,21 @@ function createFirebase() {
             pendingSubscriptions.push(() => syncState(get, set, collection, ...path));
             return;
         }
-        const newPath = path.map(segment => segment === USER_ID_PENDING ? user?.uid || "<INVALID_USER_ID>" : segment);
+        const uid = user.uid
+        const newPath = path.map(segment => segment === USER_ID ? uid : segment);
 
         let initialSync = false;
         const docRef = doc(db, collection, ...newPath);
 
         const unsub = onSnapshot(docRef, (snap) => {
             if (snap.exists()) {
-                const currData = get();
-                const snapData = snap.data()
-                let newData: Record<string, any> = {}
-
-                for (const key of Object.keys(currData)) {
-                    if (snapData[key] !== undefined) {
-                        newData[key] = snapData[key];
-                    }
-                }
-                set(newData);
-
+                set(snap.data())
                 initialSync = true;
             } else {
                 initialSync = true;
             }
+        }, err => {
+            console.warn("Error while listening to firestore doc", path, err);
         });
         cleanupFunctions.push(unsub);
 
@@ -201,18 +194,18 @@ function createFirebase() {
         isLoading = false
 
         if (user === null) {
-            console.info("Logged out, cleaning up any firebase subscribers");
+            console.info(`Logged out. Cleaned up ${cleanupFunctions.length} subscribers`);
             cleanupFunctions.forEach((unsub) => unsub())
             cleanupFunctions = [];
         } else {
-            console.info("Logged in, starting any pending firebase subscriptions");
+            console.info(`Logged in. Starting ${pendingSubscriptions.length} subscriptions`);
             pendingSubscriptions.forEach(fn => fn())
             pendingSubscriptions = []
         }
     })
 
     function destroy() {
-        console.info("Cleaning up any firebase subscribers");
+        console.info(`Closing. Cleaned up ${cleanupFunctions.length} subscribers`);
         cleanupFunctions.forEach(unsub => unsub())
         cleanupFunctions = []
         unsubAuth()
@@ -223,9 +216,8 @@ function createFirebase() {
         get user() { return user },
         get isLoading() { return isLoading },
         get isPublishing() { return isPublishing },
-        get uidPlaceholder() { return user?.uid || USER_ID_PENDING },
 
-        // functions
+        USER_ID,
         syncState,
         resetPassword,
         signUp,

@@ -11,14 +11,13 @@ function createApp() {
     // persistent state
     let username = $state("")
 
-
     firebase.syncState(
         () => ({ username }),
         (v) => {
             if (v.username != undefined) username = v.username;
         },
         "users",
-        firebase.uidPlaceholder
+        firebase.USER_ID
     );
 
 
