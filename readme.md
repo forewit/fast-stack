@@ -23,7 +23,7 @@ A simple stack for creating minimum viable PWAs quickly. This repo can be used a
 <p align="center">
   <code>&emsp;<a href="https://svelte.dev/docs/svelte/testing">Vitest</a>&emsp;<img align="center" src="static/svg/vitest.svg" width="20"/>&emsp;</code>
   <code>&emsp;GitHub CI/CD&emsp;<img align="center" src="static/svg/github.svg" width="20"/>&emsp;</code>
-  <code>&emsp;<strong><a href="https://bitwarden.com/products/secrets-manager">Bitwarden Secrets</a></strong>&emsp;<img align="center" src="static/svg/bitwarden.svg" width="20"/>&emsp;</code>
+  <!-- <code>&emsp;<strong><a href="https://bitwarden.com/products/secrets-manager">Bitwarden Secrets</a></strong>&emsp;<img align="center" src="static/svg/bitwarden.svg" width="20"/>&emsp;</code> -->
 </p>
 
 
@@ -105,6 +105,22 @@ npm run dev
 ```
 
 #### Setup vitest
+
+- Add the following to `vite.config.js`:
+
+```ts
+import { defineConfig } from 'vitest/config';
+
+export default defineConfig({
+	// ...
+	// Tell Vitest to use the `browser` entry points in `package.json` files, even though it's running in Node
+	resolve: process.env.VITEST
+		? {
+				conditions: ['browser']
+			}
+		: undefined
+});
+```
 
 #### Setup up Firebase Hosting and CI/CD with GitHub Actions
 1. **Add GitHub Secrets**
