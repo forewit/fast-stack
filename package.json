@@ -6,15 +6,13 @@
   "scripts": {
     "dev": "vite dev",
     "build:gh-pages":  "cross-env DEPLOY_TARGET=gh-pages vite build",
-    "build:firebase": "cross-env DEPLOY_TARGET=firebase vite build",
-    "build": "build:gh-pages && build:firebase",
+    "build": "vite build",
     "preview": "vite preview",
     "prepare": "svelte-kit sync || echo ''",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "deploy:gh-pages": "gh-pages -d build_gh_pages",
-    "deploy:firebase": "firebase deploy",
-    "deploy": "deploy:gh-pages && deploy:firebase"
+    "deploy": "firebase deploy --only hosting"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^4.0.0",
