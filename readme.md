@@ -5,8 +5,7 @@ A simple stack for creating minimum viable PWAs quickly. This repo can be used a
 
 <p align="center">
   <code>&emsp;Typescript&emsp;<img align="center" src="static/svg/typescript.svg" width="20"/>&emsp;</code>
-  <code>&emsp;Svelte&emsp;<img align="center" src="static/svg/svelte.svg" width="20"/>&emsp;</code>
-  <code>&emsp;<strong><a href="https://svelte.dev/docs/kit/creating-a-project">SvelteKit</a></strong>&emsp;</code>
+  <code>&emsp;<a href="https://svelte.dev/docs/kit/creating-a-project">SvelteKit</a>&emsp;<img align="center" src="static/svg/svelte.svg" width="20"/>&emsp;</code>
 </p>
 
 <p align="center">
@@ -15,11 +14,18 @@ A simple stack for creating minimum viable PWAs quickly. This repo can be used a
 </p>
 
 <p align="center">
-  <code>&emsp;GitHub&emsp;<img align="center" src="static/svg/github.svg" width="20"/>&emsp;</code>
-  <code>&emsp;<strong><a href="https://github.com/tschaub/gh-pages">gh-pages</a></strong>&emsp;</code>
+  <code>&emsp;<strong><a href="https://github.com/tschaub/gh-pages">gh-pages</a></strong>&emsp;</code> OR 
+  <code>&emsp;<strong><a href="https://firebase.google.com/docs/hosting">Firebase Hosting</a></strong>&emsp;<img align="center" src="static/svg/firebase-hosting.svg" width="20"/>&emsp;</code>
   <code>&emsp;<strong><a href="https://firebase.google.com/docs/auth">Firebase Auth</a></strong>&emsp;<img align="center" src="static/svg/firebase-auth.svg" width="20"/>&emsp;</code>
   <code>&emsp;<strong><a href="https://firebase.google.com/docs/firestore/quickstart">Firestore</a></strong>&emsp;<img align="center" src="static/svg/firebase-firestore.svg" width="20"/>&emsp;</code>
 </p>
+
+<p align="center">
+  <code>&emsp;<a href="https://svelte.dev/docs/svelte/testing">Vitest</a>&emsp;<img align="center" src="static/svg/vitest.svg" width="20"/>&emsp;</code>
+  <code>&emsp;GitHub CI/CD&emsp;<img align="center" src="static/svg/github.svg" width="20"/>&emsp;</code>
+  <code>&emsp;<strong><a href="https://bitwarden.com/products/secrets-manager">Bitwarden Secrets</a></strong>&emsp;<img align="center" src="static/svg/bitwarden.svg" width="20"/>&emsp;</code>
+</p>
+
 
 ### Initial setup
 #### Create app with shadcn-svelte and tailwind. See [install instructions](https://next.shadcn-svelte.com/docs/installation/sveltekit):
@@ -38,6 +44,7 @@ npm i gh-pages --save-dev
 npm i --save-dev @types/node
 npm i -D @sveltejs/adapter-static
 npm i firebase
+npm i -D vitest
 firebase init
 ```
 
@@ -70,9 +77,9 @@ export const prerender = true;
 export const trailingSlash = "always";
 ```
 
-#### Setup Firebase. Copy the following files from this repo:
-- `/.env`
-- `src/lib/firebase/firebase.client.js`
+#### Setup Firebase
+Copy the following files from this repo:
+- `src/lib/firebase/firebase.client.js` **update with your Firebase config**
 - `src/lib/firebase/firebase.svelte.ts`
     
 #### Setup PWA. Copy the following files from this repo:
@@ -96,3 +103,29 @@ run locally:
 firebase emulators:start
 npm run dev
 ```
+
+#### Setup vitest
+
+#### Setup up Firebase Hosting and CI/CD with GitHub Actions
+1. **Add GitHub Secrets**
+   - Go to: `Repo → Settings → Secrets and variables → Actions`
+   - Add the following secrets:
+     - `FIREBASE_TOKEN` – Get via `firebase login:ci`
+     - `FIREBASE_API_KEY` – Your Firebase API key
+
+2. **setup your .env file**
+   - Create a `.env` file in the root of your project and add the following:
+     ```env
+     VITE_FIREBASE_API_KEY=${FIREBASE_API_KEY}
+     VITE_FIREBASE_AUTH_DOMAIN=${FIREBASE_AUTH_DOMAIN}
+     VITE_FIREBASE_PROJECT_ID=${FIREBASE_PROJECT_ID}
+     VITE_FIREBASE_STORAGE_BUCKET=${FIREBASE_STORAGE_BUCKET}
+     VITE_FIREBASE_MESSAGING_SENDER_ID=${FIREBASE_MESSAGING_SENDER_ID}
+     VITE_FIREBASE_APP_ID=${FIREBASE_APP_ID}
+     ```
+2. **Create GitHub Actions Workflow**
+   Create `.github/workflows/deploy.yml`:
+
+   ```yaml
+
+   ```
