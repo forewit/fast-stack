@@ -45,6 +45,7 @@ npm i --save-dev @types/node
 npm i -D @sveltejs/adapter-static
 npm i firebase
 npm i -D vitest
+npm i --save-dev cross-env
 firebase init
 ```
 

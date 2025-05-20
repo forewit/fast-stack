@@ -1,6 +1,9 @@
 import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
+const outputDir = process.env.DEPLOY_TARGET === "gh-pages" ? "build_gh_pages" : "build";
+const basePath = process.env.DEPLOY_TARGET === "gh-pages" ? "/fast-stack" : "";
+
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	// Consult https://svelte.dev/docs/kit/integrations
@@ -13,14 +16,12 @@ const config = {
 		// See https://svelte.dev/docs/kit/adapters for more information about adapters.
 		appDir: 'app', // gh-pages doesn't play with the default _app directory
 		adapter: adapter({
-			pages: 'build',      // The directory to write prerendered pages to
-			assets: 'build',     // The directory to write static assets to
+			pages: outputDir,      // The directory to write prerendered pages to
+			assets: outputDir,     // The directory to write static assets to
 			fallback: 'index.html', // Or '200.html' or null if you want 404.html to handle all non-prerendered paths
-			precompress: false,  // Firebase can handle compression
-			strict: true         // Recommended
 		}),
 		paths: {
-			base: process.env.NODE_ENV === "production" ? "/fast-stack" : "",
+			base: basePath,
 		}
 	}
 };

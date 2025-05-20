@@ -5,13 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build",
+    "build:gh-pages":  "cross-env DEPLOY_TARGET=gh-pages vite build",
+    "build:firebase": "cross-env DEPLOY_TARGET=firebase vite build",
+    "build": "build:gh-pages && build:firebase",
     "preview": "vite preview",
     "prepare": "svelte-kit sync || echo ''",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-    "deploy": "gh-pages -d build",
-    "magic": "git add . && git commit -am 'na' && git push origin main && vite build && touch build/.nojekyll && gh-pages -d build"
+    "deploy:gh-pages": "gh-pages -d build_gh_pages",
+    "deploy:firebase": "firebase deploy",
+    "deploy": "deploy:gh-pages && deploy:firebase"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^4.0.0",
@@ -22,6 +25,7 @@
     "autoprefixer": "^10.4.20",
     "bits-ui": "^1.4.6",
     "clsx": "^2.1.1",
+    "cross-env": "^7.0.3",
     "gh-pages": "^6.3.0",
     "svelte": "^5.0.0",
     "svelte-check": "^4.0.0",
